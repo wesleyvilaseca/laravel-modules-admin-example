@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\UserManagement\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
@@ -20,7 +20,7 @@ class UsersController extends Controller
 
         $users = User::with(['roles'])->get();
 
-        return view('admin.users.index', compact('users'));
+        return view('usermanagement::admin.users.index', compact('users'));
     }
 
     public function create()
@@ -29,7 +29,7 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        return view('admin.users.create', compact('roles'));
+        return view('usermanagement::admin.users.create', compact('roles'));
     }
 
     public function store(StoreUserRequest $request)
@@ -48,7 +48,7 @@ class UsersController extends Controller
 
         $user->load('roles');
 
-        return view('admin.users.edit', compact('roles', 'user'));
+        return view('usermanagement::admin.users.edit', compact('roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -65,7 +65,7 @@ class UsersController extends Controller
 
         $user->load('roles');
 
-        return view('admin.users.show', compact('user'));
+        return view('usermanagement::admin.users.show', compact('user'));
     }
 
     public function destroy(User $user)

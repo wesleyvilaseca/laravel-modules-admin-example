@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\UserManagement\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyRoleRequest;
@@ -20,7 +20,7 @@ class RolesController extends Controller
 
         $roles = Role::with(['permissions'])->get();
 
-        return view('admin.roles.index', compact('roles'));
+        return view('usermanagement::admin.roles.index', compact('roles'));
     }
 
     public function create()
@@ -29,7 +29,7 @@ class RolesController extends Controller
 
         $permissions = Permission::pluck('title', 'id');
 
-        return view('admin.roles.create', compact('permissions'));
+        return view('usermanagement::admin.roles.create', compact('permissions'));
     }
 
     public function store(StoreRoleRequest $request)
@@ -43,12 +43,11 @@ class RolesController extends Controller
     public function edit(Role $role)
     {
         abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $permissions = Permission::pluck('title', 'id');
 
         $role->load('permissions');
 
-        return view('admin.roles.edit', compact('permissions', 'role'));
+        return view('usermanagement::admin.roles.edit', compact('permissions', 'role'));
     }
 
     public function update(UpdateRoleRequest $request, Role $role)
@@ -65,7 +64,7 @@ class RolesController extends Controller
 
         $role->load('permissions');
 
-        return view('admin.roles.show', compact('role'));
+        return view('usermanagement::admin.roles.show', compact('role'));
     }
 
     public function destroy(Role $role)
